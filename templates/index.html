@@ -1,4 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Welcome to Currency Dashboard</h1>
+<h2>Select currencies</h2>
+<form>
+    <input type="checkbox" value="EUR" name="currencies" id="eur">
+    <label for="eur">EUR</label>
+
+    <input type="checkbox" value="USD" name="currencies" id="usd">
+    <label for="usd">USD</label>
+
+    <input type="checkbox" value="GBP" name="currencies" id="gbp">
+    <label for="gbp">GBP</label>
+
+    <input type="checkbox" value="NOK" name="currencies" id="nok">
+    <label for="nok">NOK</label>
+
+    <input type="checkbox" value="JPY" name="currencies" id="jpy">
+    <label for="jpy">JPY</label>
+</form>
 {% endblock %}
