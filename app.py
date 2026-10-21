@@ -11,5 +11,4 @@ def index():
 @app.route("/results")
 def results():
     selected_currencies = request.args.getlist("currencies")
-    print(selected_currencies)
-    return render_template("Currency Results")
+    return render_template("results.html", selected_currencies=selected_currencies)
