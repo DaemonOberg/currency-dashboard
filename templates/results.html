@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 <h1> Charts for Your Selected Currencies </h1>
-<div id="charts">
+<div id="line-chart">
 {{ line_html | safe }}
-{{ bar_html | safe }}
 </div>
+<div id="bar-chart" style="display: none">
+{{ bar_html | safe }}  
+</div>
+<button type="button" id="switch-chart">Switch Chart</button>
+<script>
+const switchButton = document.getElementById("switch-chart")
+switchButton.addEventListener("click", function() {console.log("Button clickd!");
+});
+</script>
 {% endblock %}  
