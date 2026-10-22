@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 <h1> Charts for Your Selected Currencies </h1>
-<div id="charts"></div>
-{% endblock %}
+<div id="charts">
+{{ line_html | safe }}
+{{ bar_html | safe }}
+</div>
+{% endblock %}  
