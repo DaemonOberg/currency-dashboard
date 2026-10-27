@@ -6,8 +6,9 @@ def create_charts(data, dates):
     currencies = ["EUR", "USD", "GBP"]
     changes = [1.2, -0.5, 0.8]
 
-    fig = px.line(x=dates, y=rates, title="EUR to SEK Exchange Rate")
+    fig = px.line(x=dates, y=rates, title="EUR to SEK Exchange Rate", markers=True)
     fig.update_layout(xaxis_title="Dates", yaxis_title="Exchange Rate (SEK)")
+    fig.update_xaxes(tickformat="%Y-%m-%d")
     line_html = fig.to_html()
 
     bar_fig = px.bar(

@@ -1,14 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-<h1> Charts for Your Selected Currencies </h1>
-<div id="line-chart">
-{{ line_html | safe }}
-</div>
-<div id="bar-chart" style="display: none">
-{{ bar_html | safe }}  
-</div>
-<button type="button" id="switch-chart">Switch Chart</button>
-<script>
+    <h1>Charts for Your Selected Currencies</h1>
+    <div id="line-chart">{{ line_html | safe }}</div>
+    <div id="bar-chart" style="display: none">{{ bar_html | safe }}</div>
+    <button type="button" id="switch-chart">Switch Chart</button>
+    <script>
 const switchButton = document.getElementById("switch-chart");
 const lineChart = document.getElementById("line-chart");
 const barChart = document.getElementById("bar-chart");
@@ -21,5 +17,19 @@ switchButton.addEventListener("click", function() {
         barChart.style.display = "block";
     }
 });
-</script>
-{% endblock %}  
+    </script>
+    <select id="period-select">
+        <option value="1D">Day</option>
+        <option value="1W">Week</option>
+        <option value="1M">Month</option>
+        <option value="1Q">Quarter</option>
+    </select>
+    <script>
+const periodSelect = document.getElementById("period-select");
+
+periodSelect.addEventListener("change", function() {
+    const selectedPeriod = periodSelect.value;
+    console.log(selectedPeriod);
+});
+    </script>
+{% endblock %}
