@@ -15,6 +15,8 @@ def results():
     data = [15, 10.7, 10.6]
     dates = ["2026-10-20", "2026-10-21", "2026-10-22"]
     selected_currencies = request.args.getlist("currencies")
+    selected_period = request.args.getlist("period")
+    print(selected_period)
     line_html, bar_html = create_charts(data, dates)
     return render_template(
         "results.html",
@@ -22,3 +24,8 @@ def results():
         line_html=line_html,
         bar_html=bar_html,
     )
+
+
+@app.route("/api/chart")
+def chart_data():
+    return

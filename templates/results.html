@@ -30,6 +30,8 @@ const periodSelect = document.getElementById("period-select");
 periodSelect.addEventListener("change", function() {
     const selectedPeriod = periodSelect.value;
     console.log(selectedPeriod);
+    const url = `/results?period=${selectedPeriod}`;
+    fetch(url);
 });
     </script>
 {% endblock %}
