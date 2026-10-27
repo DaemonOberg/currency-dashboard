@@ -12,8 +12,10 @@ def index():
 
 @app.route("/results")
 def results():
+    data = [15, 10.7, 10.6]
+    dates = ["2026-10-20", "2026-10-21", "2026-10-22"]
     selected_currencies = request.args.getlist("currencies")
-    line_html, bar_html = create_charts()
+    line_html, bar_html = create_charts(data, dates)
     return render_template(
         "results.html",
         selected_currencies=selected_currencies,
