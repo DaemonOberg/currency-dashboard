@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 
 from charts import create_charts
 
@@ -28,4 +28,5 @@ def results():
 
 @app.route("/api/chart")
 def chart_data():
-    return
+    selected_period = request.args.get("period")
+    return jsonify(period=selected_period)
