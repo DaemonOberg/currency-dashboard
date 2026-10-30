@@ -7,6 +7,8 @@
     <script>
 const switchButton = document.getElementById("switch-chart");
 const lineChart = document.getElementById("line-chart");
+const plotElement = lineChart.querySelector(".js-plotly-plot");
+console.log(plotElement.data[0].y);
 const barChart = document.getElementById("bar-chart");
 switchButton.addEventListener("click", function() {
     if (lineChart.style.display === "none") {
