@@ -1,16 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
-<h1> Charts for Your Selected Currencies </h1>
-<div id="line-chart">
-{{ line_html | safe }}
-</div>
-<div id="bar-chart" style="display: none">
-{{ bar_html | safe }}  
-</div>
-<button type="button" id="switch-chart">Switch Chart</button>
-<script>
-const switchButton = document.getElementById("switch-chart")
-switchButton.addEventListener("click", function() {console.log("Button clickd!");
+    <h1>Charts for Your Selected Currencies</h1>
+    <div id="line-chart">{{ line_html | safe }}</div>
+    <div id="bar-chart" style="display: none">{{ bar_html | safe }}</div>
+    <button type="button" id="switch-chart">Switch Chart</button>
+    <script>
+const switchButton = document.getElementById("switch-chart");
+const lineChart = document.getElementById("line-chart");
+const plotElement = lineChart.querySelector(".js-plotly-plot");
+console.log(plotElement.data[0].y);
+const barChart = document.getElementById("bar-chart");
+switchButton.addEventListener("click", function() {
+    if (lineChart.style.display === "none") {
+        lineChart.style.display = "block";
+        barChart.style.display = "none";
+    } else {
+        lineChart.style.display = "none";
+        barChart.style.display = "block";
+    }
 });
-</script>
-{% endblock %}  
+    </script>
+    <select id="period-select">
+        <option value="1D">Day</option>
+        <option value="1W">Week</option>
+        <option value="1M">Month</option>
+        <option value="1Q">Quarter</option>
+    </select>
+    <script>
+const periodSelect = document.getElementById("period-select");
+
+periodSelect.addEventListener("change", function() {
+    const selectedPeriod = periodSelect.value;
+    console.log(selectedPeriod);
+    const url = `/api/chart?period=${selectedPeriod}`;
+    fetch(url).then(response => {
+        console.log(response);
+        return response.json();
+})
+.then(data => console.log(data.period))
+});
+    </script>
+{% endblock %}
