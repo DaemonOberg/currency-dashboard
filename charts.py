@@ -2,10 +2,12 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 
-def create_charts(data, dates):
+def create_charts(data, dates, table_data):
     rates = data
-    currencies = ["EUR", "USD", "GBP"]
-    changes = [1.2, -0.5, 0.8]
+    currencies = [row["currency"] for row in table_data]
+    changes = []
+    for row in table_data:
+        changes.append(row["change_12m"])
 
     fig = go.Figure()
 

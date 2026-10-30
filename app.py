@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template, request
 
 from api import get_history, get_latest
+from calculations import build_df, get_table_data
 from charts import create_charts
 
 app = Flask(__name__)
@@ -16,6 +17,8 @@ def results():
     selected_currencies = request.args.getlist("currencies")
     rates = get_latest(selected_currencies)
     history = get_history(selected_currencies)
+    df = build_df(history, selected_currencies)
+    table_data = get_table_data(df)
     dates = []
     rates_history = {}
 
@@ -32,7 +35,7 @@ def results():
 
     selected_period = request.args.getlist("period")
     print("API-svar:", selected_period, rates)
-    line_html, bar_html = create_charts(rates_history, dates)
+    line_html, bar_html = create_charts(rates_history, dates, table_data)
     return render_template(
         "results.html",
         selected_currencies=selected_currencies,
