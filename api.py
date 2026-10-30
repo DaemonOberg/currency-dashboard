@@ -3,6 +3,7 @@ from datetime import date, timedelta
 import requests
 
 URL = "https://api.frankfurter.dev/v2/rates"
+
 VALUTOR = ["EUR", "USD", "GBP", "NOK", "JPY"]
 
 
@@ -10,16 +11,9 @@ def get_latest(currencies=None):
     if currencies is None:
         currencies = VALUTOR
 
-    quotes = []
-    for c in currencies:
-        if c != "EUR":
-            quotes.append(c)
+    quotes_list = [c for c in currencies if c != "SEK"]
 
-    # SEK behövs alltid för att räkna om från EUR
-    if "SEK" not in quotes:
-        quotes.append("SEK")
-
-    params = {"quotes": ",".join(quotes)}
+    params = {"base": "SEK", "quotes": ",".join(quotes_list)}
 
     try:
         res = requests.get(URL, params=params, timeout=5)
@@ -40,18 +34,13 @@ def get_history(currencies=None, start=None, end=None):
     if start is None:
         start = str(date.today() - timedelta(days=365))
 
-    quotes = []
-    for c in currencies:
-        if c != "EUR":
-            quotes.append(c)
-
-    if "SEK" not in quotes:
-        quotes.append("SEK")
+    quotes_list = [c for c in currencies if c != "SEK"]
 
     params = {
         "from": start,
         "to": end,
-        "quotes": ",".join(quotes),
+        "base": "SEK",
+        "quotes": ",".join(quotes_list),
     }
 
     try:
