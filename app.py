@@ -13,10 +13,10 @@ def index():
 
 @app.route("/results")
 def results():
-    rates = get_latest()
+    selected_currencies = request.args.getlist("currencies")
+    rates = get_latest(selected_currencies)
     data = [15, 10.7, 10.6]
     dates = ["2026-10-20", "2026-10-21", "2026-10-22"]
-    selected_currencies = request.args.getlist("currencies")
     selected_period = request.args.getlist("period")
     print("API-svar:",selected_period,rates)
     line_html, bar_html = create_charts(data, dates)
