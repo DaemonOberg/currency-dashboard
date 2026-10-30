@@ -2,7 +2,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 
-def create_charts(data, dates, table_data):
+def create_charts(data, dates_by_currency, table_data):
     rates = data
     currencies = [row["currency"] for row in table_data]
     changes = []
@@ -14,7 +14,7 @@ def create_charts(data, dates, table_data):
     for currency, currency_rates in rates.items():
         fig.add_trace(
             go.Scatter(
-                x=dates,
+                x=dates_by_currency[currency],
                 y=currency_rates,
                 mode="lines",
                 name=f"{currency} to SEK",
