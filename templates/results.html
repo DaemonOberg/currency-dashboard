@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
     <h1>Charts for Your Selected Currencies</h1>
+    <table>
+        {% for rate in rates %}
+            {% if rate.quote in selected_currencies %}
+            {{ rate.quote }}
+            {{ rate.rate }}
+        {% endif %}
+        {% endfor %}
+    </table>
     <div id="line-chart">{{ line_html | safe }}</div>
     <div id="bar-chart" style="display: none">{{ bar_html | safe }}</div>
     <button type="button" id="switch-chart">Switch Chart</button>
