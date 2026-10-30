@@ -49,4 +49,9 @@ def results():
 @app.route("/api/chart")
 def chart_data():
     selected_period = request.args.get("period")
-    return jsonify(period=selected_period)
+    selected_currencies = request.args.getlist("currencies")
+    history = get_history(selected_currencies)
+    df = build_df(history, selected_currencies)
+    grouped_df = group_by_time(df, selected_period)
+    chart_records = grouped_df.to_dict(orient="records")
+    return jsonify(period=selected_period, records=chart_records)

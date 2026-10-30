@@ -15,7 +15,8 @@
             <option value="Day" {% if selected_period == "Day" %}selected{% endif %}>Day</option>
             <option value="Week" {% if selected_period == "Week" %}selected{% endif %}>Week</option>
             <option value="Month" {% if selected_period == "Month" %}selected{% endif %}>Month</option>
-            <option value="Quarter" {% if selected_period == "Quarter" %}selected{% endif %}>Quarter</option>
+            <option value="Quarter"
+                    {% if selected_period == "Quarter" %}selected{% endif %}>Quarter</option>
         </select>
     </div>
     <div id="bar-chart" style="display: none">{{ bar_html | safe }}</div>
@@ -39,8 +40,31 @@ periodSelect.addEventListener("change", function() {
     const selectedPeriod = periodSelect.value;
     const currencies = new URLSearchParams(window.location.search).getAll("currencies");
     const url = `/api/chart?period=${selectedPeriod}&${currencies.map(currency => `currencies=${currency}`).join("&")}`;
-    fetch(url).then(response => {
-        return response.json();
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const records = data.records;
+            const uniqueCurrencies = [...new Set(records.map(record => record.currency))];
+            const traces = [];
+            uniqueCurrencies.forEach(currency => {
+                const currencyRecords = records.filter(record => record.currency === currency);
+                const dates = currencyRecords.map(record => record.date);
+                const rates = currencyRecords.map(record => record.sek);
+                traces.push({
+                    x: dates,
+                    y: rates,
+                    mode: "lines",
+                    name: currency
+                });
+});
+const plotElement = lineChart.querySelector(".js-plotly-plot");
+Plotly.react(plotElement, traces, {
+    ...plotElement.layout,
+    xaxis: {
+    type: "category",
+    nticks: 12
+}
+});
 });
 });
     </script>
