@@ -15,6 +15,13 @@ def index():
 @app.route("/results")
 def results():
     selected_currencies = request.args.getlist("currencies")
+    if not selected_currencies:
+        return render_template("index.html", error="Please select a currency")
+    amount = request.args.get("amount")
+    if amount:
+        amount = float(amount)
+    else:
+        return render_template("index.html", error="Please enter an amount")
     rates = get_latest(selected_currencies)
     history = get_history(selected_currencies)
     df = build_df(history, selected_currencies)
@@ -34,7 +41,7 @@ def results():
         grouped_dates_by_currency[currency].append(row["date"])
 
     line_html, bar_html = create_charts(
-        grouped_history, grouped_dates_by_currency, table_data
+        grouped_history, grouped_dates_by_currency, table_data, amount
     )
     return render_template(
         "results.html",

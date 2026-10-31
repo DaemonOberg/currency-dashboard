@@ -20,8 +20,8 @@ def test_index(client):
 
 # Testar resultatsidan med valda valutor i URL:en
 def test_results(client):
-    response = client.get("/results?currencies=EUR&currencies=USD")
+    response = client.get("/results?amount=100&currencies=EUR&currencies=USD")
     # Kollar att sidan laddas utan fel
     assert response.status_code == 200
     # Kollar att grafen finns med på sidan
-    assert b"EUR to SEK Exchange Rate" in response.data
+    assert b"Historical Value of 100 SEK" in response.data

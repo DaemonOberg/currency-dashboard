@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Welcome to Currency Dashboard</h1>
-    <h2>Select currencies to compare against SEK</h2>
+    <h1>SEK Currency Dashboard</h1>
+    <h2>Select currencies to compare with SEK</h2>
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
     <form method="get" action="/results">
+        <label for="amount">Amount in SEK:</label>
+        <input type="number" id="amount" name="amount" min="1" step="any">
         <input type="checkbox" value="EUR" name="currencies" id="eur">
         <label for="eur">EUR</label>
         <input type="checkbox" value="USD" name="currencies" id="usd">

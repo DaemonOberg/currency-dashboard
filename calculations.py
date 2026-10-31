@@ -12,8 +12,8 @@ def build_df(data, selected):
         rate = row["rate"]
 
         if curr in selected:
-            # räknar ut vad 1 enhet av valutan kostar i sek
-            sek_val = 1 / rate
+            # räknar ut vad 1 SEK är värt i den valda valutan
+            sek_val = rate
 
             rows.append(
                 {

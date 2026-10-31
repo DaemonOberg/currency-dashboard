@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Charts for Your Selected Currencies</h1>
+    <h1>SEK Currency Comparison</h1>
     <table>
         {% for rate in rates %}
             {% if rate.quote in selected_currencies %}
@@ -34,11 +34,13 @@ switchButton.addEventListener("click", function() {
         barChart.style.display = "block";
     }
 });
-const periodSelect = document.getElementById("period-select");
 
+
+const periodSelect = document.getElementById("period-select");
 periodSelect.addEventListener("change", function() {
     const selectedPeriod = periodSelect.value;
     const currencies = new URLSearchParams(window.location.search).getAll("currencies");
+    const amount = Number(new URLSearchParams(window.location.search).get("amount"));
     const url = `/api/chart?period=${selectedPeriod}&${currencies.map(currency => `currencies=${currency}`).join("&")}`;
     fetch(url)
         .then(response => response.json())
@@ -49,7 +51,7 @@ periodSelect.addEventListener("change", function() {
             uniqueCurrencies.forEach(currency => {
                 const currencyRecords = records.filter(record => record.currency === currency);
                 const dates = currencyRecords.map(record => record.date);
-                const rates = currencyRecords.map(record => record.sek);
+                const rates = currencyRecords.map(record => record.sek * amount);
                 traces.push({
                     x: dates,
                     y: rates,
@@ -58,14 +60,35 @@ periodSelect.addEventListener("change", function() {
                 });
 });
 const plotElement = lineChart.querySelector(".js-plotly-plot");
-Plotly.react(plotElement, traces, {
-    ...plotElement.layout,
-    xaxis: {
-    type: "category",
-    nticks: 12
-}
+
+const newX = plotElement.data.map(trace => {
+    const currency = trace.name.split(" to ").pop();
+    return records
+        .filter(record => record.currency === currency)
+        .map(record => record.date);
+});
+
+const newY = plotElement.data.map(trace => {
+    const currency = trace.name.split(" to ").pop();
+    return records
+        .filter(record => record.currency === currency)
+        .map(record => record.sek * amount);
+});
+
+Plotly.restyle(plotElement, {
+    x: newX,
+    y: newY
+});
+Plotly.relayout(plotElement, {
+    "xaxis.nticks": 12,
+    "xaxis2.nticks": 12,
+    "xaxis3.nticks": 12,
+    "xaxis4.nticks": 12,
+    "xaxis5.nticks": 12
 });
 });
 });
+
+
     </script>
 {% endblock %}
