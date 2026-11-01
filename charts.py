@@ -37,10 +37,24 @@ def create_charts(data, dates_by_currency, table_data, amount):
     line_html = fig.to_html()
 
     bar_fig = px.bar(
-        x=currencies, y=changes, title="Currency Percentage Change", text=changes
+        x=currencies, 
+        y=changes, 
+        title="Currency Percentage Change", 
+        text=changes
     )
-    bar_fig.update_layout(xaxis_title="Currencies", yaxis_title="Percentage Change (%)")
-    bar_fig.update_traces(textposition="outside", texttemplate="%{text}%")
+    bar_fig.update_layout(
+    template="plotly_dark",
+    paper_bgcolor="#0b1012",
+    plot_bgcolor="#0b1012"
+    )
+    bar_fig.update_layout(
+        xaxis_title="Currencies", 
+        yaxis_title="Percentage Change (%)"
+    )
+    bar_fig.update_traces(
+        textposition="outside",
+        texttemplate="%{text}%"
+    )
     bar_html = bar_fig.to_html()
 
     return line_html, bar_html
