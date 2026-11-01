@@ -62,3 +62,8 @@ def chart_data():
     grouped_df = group_by_time(df, selected_period)
     chart_records = grouped_df.to_dict(orient="records")
     return jsonify(period=selected_period, records=chart_records)
+
+
+@app.route("/info")
+def info():
+    return render_template("info.html")
