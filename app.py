@@ -50,6 +50,7 @@ def results():
         bar_html=bar_html,
         rates=rates,
         selected_period=selected_period,
+        table_data=table_data,
     )
 
 
