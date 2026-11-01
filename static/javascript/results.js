@@ -19,10 +19,20 @@ switchButton.addEventListener("click", function() {
         lineChart.style.display = "block";
         barChart.style.display = "none";
         periodControl.style.display = "flex";
+
+        /* Resize the line chart after it becomes visible */
+        requestAnimationFrame(() => {
+            Plotly.Plots.resize(lineChart.querySelector(".js-plotly-plot"));
+        });
     } else {
         lineChart.style.display = "none";
         barChart.style.display = "block";
         periodControl.style.display = "none";
+
+        /* Resize the bar chart after it becomes visible */
+        requestAnimationFrame(() => {
+            Plotly.Plots.resize(barChart.querySelector(".js-plotly-plot"));
+        });
     }
 });
 
