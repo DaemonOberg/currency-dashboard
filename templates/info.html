@@ -1,51 +1,148 @@
-
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>About SEK Currency Dashboard</h1>
+<div class="info-page">
+    <header class="info-header">
+        <h1>About SEK Currency Dashboard</h1>
+        <p>
+            Explore exchange rates, compare currencies, and
+            discover how the Swedish krona has changed over time.
+        </p>
+    </header>
 
-    <h2>Project description</h2>
-    <p>
-        SEK Currency Dashboard is a web application built with Python and Flask.
-        It allows users to compare the Swedish krona (SEK) with EUR, USD, GBP,
-        NOK and DKK using current and historical exchange rates.
-    </p>
+    <section class="info-section">
+        <h2>Project Overview</h2>
+        <p>
+            SEK Currency Dashboard is a web application built with
+            Python and Flask. It allows users to compare the Swedish
+            krona (SEK) against EUR, USD, GBP, NOK and DKK.
+        </p>
+        <p>
+            SEK is always the base currency. Users can enter an amount
+            in SEK, select one or more currencies, and explore current
+            and historical exchange rates using interactive charts.
+        </p>
+    </section>
 
-    <h2>Analysis Guide</h2>
-    <p>
-        Follow the instructions below to answer the analysis questions
-        using the dashboard.
-    </p>
+    <section class="info-section">
+        <h2>Features</h2>
 
-    <h3>1. How has the value of SEK in EUR changed over the last 12 months?</h3>
-    <ol>
-        <li>Enter 1 in the SEK amount field.</li>
-        <li>Select EUR and click Submit.</li>
-        <li>Look at the line chart showing the historical exchange rates.</li>
-        <li>Compare the beginning and end of the line to see whether SEK has increased or decreased in value against EUR.</li>
-    </ol>
+        <div class="info-features">
+            <article class="info-card">
+                <h3>Currency Comparison</h3>
+                <p>
+                    Compare SEK with one or more supported currencies.
+                </p>
+            </article>
 
-    <h3>2. Against which of the five currencies has SEK strengthened or weakened the most over the past year?</h3>
-    <ol>
-        <li>Enter 1 in the SEK amount field.</li>
-        <li>Select all five currencies and click Submit.</li>
-        <li>Click Switch Chart to display the percentage change bar chart.</li>
-        <li>Compare the percentage changes to identify where SEK has strengthened or weakened the most.</li>
-    </ol>
+            <article class="info-card">
+                <h3>Currency Conversion</h3>
+                <p>
+                    See how much your selected SEK amount is worth
+                    in other currencies.
+                </p>
+            </article>
 
-    <h3>3. In which of the five currencies has 1 SEK had the highest numerical exchange value during the last 12 months?</h3>
-    <ol>
-        <li>Enter 1 in the SEK amount field.</li>
-        <li>Select all five currencies and click Submit.</li>
-        <li>Use the line chart and select Day for the most detailed view.</li>
-        <li>Hover over the highest points of each line to compare their exchange values.</li>
-    </ol>
+            <article class="info-card">
+                <h3>Historical Exchange Rates</h3>
+                <p>
+                    Explore exchange rate trends over the past
+                    12 months.
+                </p>
+            </article>
 
-    <h2>Data source</h2>
-    <p>
-        Exchange rate data is retrieved from the
-        <a href="https://frankfurter.dev/" target="_blank" rel="noopener noreferrer">
-            Frankfurter API
-        </a>.
-    </p>
+            <article class="info-card">
+                <h3>Interactive Charts</h3>
+                <p>
+                    Switch between line and bar charts and explore
+                    Day, Week, Month and Quarter groupings.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <h2>Analysis Guide</h2>
+        <p>
+            Follow these instructions to answer the three analysis
+            questions using the dashboard.
+        </p>
+
+        <article class="analysis-card">
+            <span class="question-label">QUESTION 01</span>
+            <h3>
+                How has the value of SEK in EUR changed
+                over the last 12 months?
+            </h3>
+            <ol>
+                <li>Enter 1 in the SEK amount field.</li>
+                <li>Select EUR and click Submit.</li>
+                <li>Examine the historical line chart.</li>
+                <li>
+                    Compare the beginning and end of the line
+                    to determine whether SEK increased or decreased
+                    in value against EUR.
+                </li>
+            </ol>
+        </article>
+
+        <article class="analysis-card">
+            <span class="question-label">QUESTION 02</span>
+            <h3>
+                Against which of the five currencies has SEK
+                strengthened or weakened the most over the past year?
+            </h3>
+            <ol>
+                <li>Enter 1 in the SEK amount field.</li>
+                <li>Select all five currencies and click Submit.</li>
+                <li>
+                    Click Switch Chart to display the percentage
+                    change bar chart.
+                </li>
+                <li>
+                    Compare the percentage changes. The highest
+                    value shows where SEK strengthened the most,
+                    while the lowest shows where it weakened the most.
+                </li>
+            </ol>
+        </article>
+
+        <article class="analysis-card">
+            <span class="question-label">QUESTION 03</span>
+            <h3>
+                In which of the five currencies has 1 SEK had
+                the highest numerical exchange value during
+                the last 12 months?
+            </h3>
+            <ol>
+                <li>Enter 1 in the SEK amount field.</li>
+                <li>Select all five currencies and click Submit.</li>
+                <li>
+                    Use the line chart with Day selected
+                    for the most detailed view.
+                </li>
+                <li>
+                    Hover over the highest point of each currency
+                    line and compare the exchange values.
+                </li>
+            </ol>
+        </article>
+    </section>
+
+    <section class="info-section">
+        <h2>Data Source</h2>
+        <p>
+            Current and historical exchange rate data is provided
+            by the Frankfurter API.
+        </p>
+        <a
+            class="info-link"
+            href="https://frankfurter.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Visit Frankfurter API
+        </a>
+    </section>
+</div>
 {% endblock %}

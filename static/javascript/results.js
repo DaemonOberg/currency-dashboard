@@ -1,6 +1,18 @@
+
+/* ========================================
+   1. CHART ELEMENTS
+   Get chart elements from the HTML
+======================================== */
+
 const switchButton = document.getElementById("switch-chart");
 const lineChart = document.getElementById("line-chart");
 const barChart = document.getElementById("bar-chart");
+
+
+/* ========================================
+   2. CHART SWITCHING
+   Switch between line and bar charts
+======================================== */
 
 switchButton.addEventListener("click", function() {
     if (getComputedStyle(lineChart).display === "none") {
@@ -12,6 +24,12 @@ switchButton.addEventListener("click", function() {
     }
 });
 
+
+/* ========================================
+   3. PERIOD SELECTION
+   Update chart data when the period changes
+======================================== */
+
 const periodSelect = document.getElementById("period-select");
 
 periodSelect.addEventListener("change", function() {
@@ -20,6 +38,7 @@ periodSelect.addEventListener("change", function() {
     const amount = Number(new URLSearchParams(window.location.search).get("amount"));
     const url = `/api/chart?period=${selectedPeriod}&${currencies.map(currency => `currencies=${currency}`).join("&")}`;
 
+    /* Fetch updated exchange rates from Flask */
     fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -31,6 +50,7 @@ periodSelect.addEventListener("change", function() {
             const records = data.records;
             const plotElement = lineChart.querySelector(".js-plotly-plot");
 
+            /* Prepare dates for each currency */
             const newX = plotElement.data.map(trace => {
                 const currency = trace.name.split(" to ").pop();
                 return records
@@ -38,6 +58,7 @@ periodSelect.addEventListener("change", function() {
                     .map(record => record.date);
             });
 
+            /* Calculate converted SEK amounts for each currency */
             const newY = plotElement.data.map(trace => {
                 const currency = trace.name.split(" to ").pop();
                 return records
@@ -45,15 +66,19 @@ periodSelect.addEventListener("change", function() {
                     .map(record => record.sek * amount);
             });
 
+            /* Update Plotly chart values */
             Plotly.restyle(plotElement, {
                 x: newX,
                 y: newY
             });
 
+            /* Adjust the number of date ticks */
             Plotly.relayout(plotElement, {
                 "xaxis.nticks": 12
             });
         })
+
+        /* Handle API and network errors */
         .catch(error => {
             alert(error.message);
         });
