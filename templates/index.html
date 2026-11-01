@@ -1,23 +1,83 @@
+
 {% extends "base.html" %}
+
 {% block content %}
-    <h1>SEK Currency Dashboard</h1>
-    <h2>Select currencies to compare with SEK</h2>
-    {% if error %}
-        <p>{{ error }}</p>
-    {% endif %}
-    <form method="get" action="/results">
-        <label for="amount">Amount in SEK:</label>
-        <input type="number" id="amount" name="amount" min="1" step="any">
-        <input type="checkbox" value="EUR" name="currencies" id="eur">
-        <label for="eur">EUR</label>
-        <input type="checkbox" value="USD" name="currencies" id="usd">
-        <label for="usd">USD</label>
-        <input type="checkbox" value="GBP" name="currencies" id="gbp">
-        <label for="gbp">GBP</label>
-        <input type="checkbox" value="NOK" name="currencies" id="nok">
-        <label for="nok">NOK</label>
-        <input type="checkbox" value="DKK" name="currencies" id="dkk">
-        <label for="dkk">DKK</label>
-        <button type="submit">Submit</button>
-    </form>
+
+<main class="home-page">
+
+    <header class="home-header">
+        <h1>SEK Currency Dashboard</h1>
+        <p>
+            Compare the Swedish krona with other currencies
+            and explore exchange rates over time.
+        </p>
+    </header>
+
+    <section class="home-card">
+        <h2>Currency Comparison</h2>
+        <p class="home-description">
+            Enter an amount in SEK and select the currencies
+            you want to compare.
+        </p>
+
+        {% if error %}
+            <p class="home-error">{{ error }}</p>
+        {% endif %}
+
+        <form method="get" action="/results">
+
+            <div class="home-form-group">
+                <label for="amount">Amount in SEK</label>
+                <input
+                    type="number"
+                    id="amount"
+                    name="amount"
+                    min="0.01"
+                    step="any"
+                    placeholder="Enter amount in SEK"
+                >
+            </div>
+
+            <fieldset class="currency-fieldset">
+                <legend>Select currencies</legend>
+
+                <div class="currency-grid">
+
+                    <label class="currency-option">
+                        <input type="checkbox" value="EUR" name="currencies">
+                        <span>EUR</span>
+                    </label>
+
+                    <label class="currency-option">
+                        <input type="checkbox" value="USD" name="currencies">
+                        <span>USD</span>
+                    </label>
+
+                    <label class="currency-option">
+                        <input type="checkbox" value="GBP" name="currencies">
+                        <span>GBP</span>
+                    </label>
+
+                    <label class="currency-option">
+                        <input type="checkbox" value="NOK" name="currencies">
+                        <span>NOK</span>
+                    </label>
+
+                    <label class="currency-option">
+                        <input type="checkbox" value="DKK" name="currencies">
+                        <span>DKK</span>
+                    </label>
+
+                </div>
+            </fieldset>
+
+            <button class="home-submit" type="submit">
+                Compare Currencies
+            </button>
+
+        </form>
+    </section>
+
+</main>
+
 {% endblock %}
