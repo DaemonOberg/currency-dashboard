@@ -79,3 +79,31 @@ def test_convert_to_sek():
     # 1 / 0.08 = 12.5 kr per dollar -> 100 dollar = 1250 kr
     assert res["rate"] == 12.5
     assert res["sek_amount"] == 1250.0
+
+
+# Testar vecka och kvartal i group_by_time
+def test_group_by_time_periods():
+    df = build_df(test_data, ["EUR"])
+    week = group_by_time(df, "Week")
+    quarter = group_by_time(df, "Quarter")
+
+    assert len(week) == 1
+    assert quarter["date"].iloc[0] == "2025-Q1"
+
+
+# Testar att funktionerna hanterar en tom dataframe utan att krascha
+def test_empty_dataframes():
+    empty_df = build_df([], ["EUR"])
+
+    assert group_by_time(empty_df).empty
+    assert calc_percent(empty_df).empty
+    assert get_table_data(empty_df) == []
+    assert get_answers(empty_df) == {}
+
+
+# Testar convert_to_sek när data eller valuta saknas
+def test_convert_to_sek_missing():
+    latest = [{"date": "2025-03-11", "base": "SEK", "quote": "USD", "rate": 0.08}]
+
+    assert convert_to_sek(100, "USD", []) is None
+    assert convert_to_sek(100, "GBP", latest) is None
