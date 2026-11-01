@@ -1,3 +1,5 @@
+import math
+
 from flask import Flask, jsonify, render_template, request
 
 from api import get_history, get_latest
@@ -18,10 +20,17 @@ def results():
     if not selected_currencies:
         return render_template("index.html", error="Please select a currency")
     amount = request.args.get("amount")
-    if amount:
-        amount = float(amount)
-    else:
+    if not amount:
         return render_template("index.html", error="Please enter an amount")
+    try:
+        amount = float(amount)
+    except ValueError:
+        return render_template("index.html", error="Please enter a valid number")
+    if not math.isfinite(amount) or amount <= 0:
+        return render_template(
+            "index.html",
+            error="Please enter a positive, finite amount",
+        )
     rates = get_latest(selected_currencies)
     history = get_history(selected_currencies)
     if rates is None or history is None:
