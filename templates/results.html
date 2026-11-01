@@ -17,20 +17,22 @@
             <button type="button" id="switch-chart">Switch Chart</button>
         </div>
         <div class="table-section">
-            <h2>Exchange Rates</h2>
+            <h2>Valutakonvertering</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Currency</th>
-                        <th>Rate</th>
+                        <th>Belopp</th>
+                        <th>Växelkurs</th>
+                        <th>Resultat</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for rate in rates %}
                         {% if rate.quote in selected_currencies %}
                             <tr>
-                                <td>{{ rate.quote }}</td>
-                                <td>{{ rate.rate }}</td>
+                                <td>{{ amount }} SEK</td>
+                                <td>{{ rate.rate }} {{ rate.quote }} per SEK</td>
+                                <td>{{ (amount * rate.rate) | round(2) }} {{ rate.quote }}</td>
                             </tr>
                         {% endif %}
                     {% endfor %}

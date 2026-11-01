@@ -51,6 +51,7 @@ def results():
         rates=rates,
         selected_period=selected_period,
         table_data=table_data,
+        amount=amount,
     )
 
 
