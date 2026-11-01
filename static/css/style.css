@@ -47,206 +47,16 @@ body {
     font-size: 16px;
 }
 
+
+/* Navigation hover effect */
+
 .navbar-links a:hover {
     color: #16c79a;
 }
 
 
 /* ========================================
-   3. RESULTS PAGE
-   Chart layout and currency table
-======================================== */
-
-.results-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
-    gap: 20px;
-    align-items: start;
-}
-
-.chart-section,
-.table-section {
-    min-width: 0;
-}
-
-/* Hide bar chart until the user switches charts */
-#bar-chart {
-    display: none;
-}
-
-/* Currency comparison table */
-
-.table-section h2 {
-    margin-top: 0;
-    margin-bottom: 12px;
-    font-size: 22px;
-}
-
-.table-section table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 15px;
-}
-
-.table-section th,
-.table-section td {
-    padding: 12px 0;
-    text-align: left;
-}
-
-.table-section thead tr {
-    border-bottom: 1px solid #263238;
-}
-
-.table-section tbody tr {
-    border-bottom: 1px solid #1a2429;
-}
-
-.table-section th:last-child,
-.table-section td:last-child {
-    text-align: right;
-}
-
-
-/* ========================================
-   4. INFO PAGE
-   Project overview, features and analysis
-======================================== */
-
-.info-page {
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-/* Info page header */
-
-.info-header {
-    margin-bottom: 40px;
-}
-
-.info-header h1 {
-    color: #16c79a;
-    font-size: 36px;
-    margin-bottom: 12px;
-}
-
-.info-header p {
-    color: #94a3b8;
-    font-size: 17px;
-    line-height: 1.6;
-}
-
-/* Project sections */
-
-.info-section {
-    margin-bottom: 40px;
-}
-
-.info-section h2 {
-    font-size: 24px;
-    margin-bottom: 18px;
-    color: #f1f5f9;
-}
-
-.info-section p {
-    color: #cbd5e1;
-    line-height: 1.7;
-}
-
-/* Feature cards */
-
-.info-features {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-}
-
-.info-card,
-.analysis-card {
-    background-color: #10181c;
-    border: 1px solid #263238;
-    border-radius: 12px;
-    padding: 24px;
-}
-
-.info-card h3 {
-    color: #16c79a;
-    margin-top: 0;
-}
-
-.info-card p {
-    margin-bottom: 0;
-}
-
-/* Analysis question cards */
-
-.analysis-card {
-    margin-bottom: 16px;
-}
-
-.question-label {
-    color: #16c79a;
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: 1.5px;
-}
-
-.analysis-card h3 {
-    margin-top: 12px;
-    line-height: 1.5;
-}
-
-.analysis-card ol {
-    padding-left: 24px;
-    color: #cbd5e1;
-    line-height: 1.9;
-}
-
-.analysis-card li {
-    padding-left: 6px;
-    margin-bottom: 6px;
-}
-
-/* Data source link */
-
-.info-link {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 12px 18px;
-    background-color: #16c79a;
-    color: #0b1012;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 8px;
-}
-
-.info-link:hover {
-    background-color: #12a983;
-}
-
-
-/* ========================================
-   5. RESPONSIVE DESIGN
-   Adjust layout for smaller screens
-======================================== */
-
-@media (max-width: 700px) {
-    .info-features {
-        grid-template-columns: 1fr;
-    }
-
-    .info-header h1 {
-        font-size: 28px;
-    }
-
-    .info-card,
-    .analysis-card {
-        padding: 18px;
-    }
-}
-
-/* ========================================
-   6. HOME PAGE
+   3. HOME PAGE
    Currency selection and amount form
 ======================================== */
 
@@ -254,6 +64,8 @@ body {
     max-width: 760px;
     margin: 40px auto;
 }
+
+/* Home page header */
 
 .home-header {
     text-align: center;
@@ -270,6 +82,8 @@ body {
     color: #94a3b8;
     line-height: 1.6;
 }
+
+/* Currency comparison card */
 
 .home-card {
     background-color: #10181c;
@@ -392,7 +206,359 @@ body {
     margin-bottom: 24px;
 }
 
-/* Responsive home page */
+
+/* ========================================
+   4. RESULTS PAGE
+   Charts, controls and currency table
+======================================== */
+
+/* Results page container */
+
+.results-page {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* Results page header */
+
+.results-header {
+    margin-bottom: 28px;
+}
+
+.results-header h1 {
+    color: #16c79a;
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.results-header p,
+.chart-header p,
+.table-description {
+    color: #94a3b8;
+    line-height: 1.6;
+}
+
+/* Chart and table layout */
+
+.results-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+    gap: 20px;
+    align-items: start;
+}
+
+/* Chart and table cards */
+
+.results-card {
+    background-color: #10181c;
+    border: 1px solid #263238;
+    border-radius: 14px;
+    padding: 24px;
+    min-width: 0;
+}
+
+.chart-section,
+.table-section {
+    min-width: 0;
+}
+
+/* Chart header */
+
+.chart-header h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.chart-header p {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Plotly chart containers */
+
+#line-chart,
+#bar-chart {
+    width: 100%;
+    min-width: 0;
+    min-height: 480px;
+}
+
+/* Hide bar chart until the user switches charts */
+
+#bar-chart {
+    display: none;
+}
+
+/* Allow Plotly charts to use the available width */
+
+#line-chart .js-plotly-plot,
+#bar-chart .js-plotly-plot {
+    width: 100%;
+}
+
+/* Chart controls */
+
+.chart-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 16px;
+}
+
+/* Period selection */
+
+.period-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.period-control label {
+    color: #cbd5e1;
+    font-weight: bold;
+}
+
+#period-select {
+    background-color: #0b1012;
+    border: 1px solid #34444b;
+    border-radius: 8px;
+    color: #f1f5f9;
+    padding: 12px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#period-select:focus-visible {
+    outline: 2px solid #16c79a;
+    outline-offset: 2px;
+}
+
+/* Switch chart button */
+
+#switch-chart {
+    margin-left: auto;
+    background-color: #16c79a;
+    color: #0b1012;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#switch-chart:hover {
+    background-color: #12a983;
+}
+
+/* Currency conversion table */
+
+.table-section h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 22px;
+}
+
+.table-description {
+    margin-bottom: 20px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.table-section table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.table-section th,
+.table-section td {
+    padding: 14px 8px;
+    text-align: left;
+}
+
+.table-section thead tr {
+    border-bottom: 1px solid #263238;
+}
+
+.table-section tbody tr {
+    border-bottom: 1px solid #1a2429;
+}
+
+.table-section th {
+    color: #94a3b8;
+    font-weight: bold;
+}
+
+.table-section td {
+    color: #f1f5f9;
+}
+
+.table-section th:last-child,
+.table-section td:last-child {
+    text-align: right;
+}
+
+.table-section td:last-child {
+    color: #16c79a;
+    font-weight: bold;
+}
+
+
+/* ========================================
+   5. INFO PAGE
+   Project overview, features and analysis
+======================================== */
+
+/* Info page container */
+
+.info-page {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Info page header */
+
+.info-header {
+    margin-bottom: 40px;
+}
+
+.info-header h1 {
+    color: #16c79a;
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+.info-header p {
+    color: #94a3b8;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+/* Project sections */
+
+.info-section {
+    margin-bottom: 40px;
+}
+
+.info-section h2 {
+    font-size: 24px;
+    margin-bottom: 18px;
+    color: #f1f5f9;
+}
+
+.info-section p {
+    color: #cbd5e1;
+    line-height: 1.7;
+}
+
+/* Feature cards */
+
+.info-features {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.info-card,
+.analysis-card {
+    background-color: #10181c;
+    border: 1px solid #263238;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.info-card h3 {
+    color: #16c79a;
+    margin-top: 0;
+}
+
+.info-card p {
+    margin-bottom: 0;
+}
+
+/* Analysis question cards */
+
+.analysis-card {
+    margin-bottom: 16px;
+}
+
+.question-label {
+    color: #16c79a;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.analysis-card h3 {
+    margin-top: 12px;
+    line-height: 1.5;
+}
+
+.analysis-card ol {
+    padding-left: 24px;
+    color: #cbd5e1;
+    line-height: 1.9;
+}
+
+.analysis-card li {
+    padding-left: 6px;
+    margin-bottom: 6px;
+}
+
+/* Data source link */
+
+.info-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 12px 18px;
+    background-color: #16c79a;
+    color: #0b1012;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.info-link:hover {
+    background-color: #12a983;
+}
+
+
+/* ========================================
+   6. RESPONSIVE DESIGN
+   Adjust layouts for smaller screens
+======================================== */
+
+/* Results page on tablets and smaller screens */
+
+@media (max-width: 1000px) {
+    .results-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Info page on smaller screens */
+
+@media (max-width: 700px) {
+    .info-features {
+        grid-template-columns: 1fr;
+    }
+
+    .info-header h1 {
+        font-size: 28px;
+    }
+
+    .info-card,
+    .analysis-card {
+        padding: 18px;
+    }
+}
+
+/* Home and results pages on mobile */
 
 @media (max-width: 600px) {
     .home-page {
@@ -409,5 +575,22 @@ body {
 
     .currency-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .results-header h1 {
+        font-size: 28px;
+    }
+
+    .results-card {
+        padding: 16px;
+    }
+
+    .chart-controls {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    #switch-chart {
+        width: 100%;
     }
 }

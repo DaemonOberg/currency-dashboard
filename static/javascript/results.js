@@ -7,7 +7,7 @@
 const switchButton = document.getElementById("switch-chart");
 const lineChart = document.getElementById("line-chart");
 const barChart = document.getElementById("bar-chart");
-
+const periodControl = document.getElementById("period-control");
 
 /* ========================================
    2. CHART SWITCHING
@@ -18,12 +18,13 @@ switchButton.addEventListener("click", function() {
     if (getComputedStyle(lineChart).display === "none") {
         lineChart.style.display = "block";
         barChart.style.display = "none";
+        periodControl.style.display = "flex";
     } else {
         lineChart.style.display = "none";
         barChart.style.display = "block";
+        periodControl.style.display = "none";
     }
 });
-
 
 /* ========================================
    3. PERIOD SELECTION

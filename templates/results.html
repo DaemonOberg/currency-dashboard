@@ -1,44 +1,91 @@
+
 {% extends "base.html" %}
+
 {% block content %}
-    <h1>SEK Currency Comparison</h1>
+
+<div class="results-page">
+
+    <header class="results-header">
+        <h1>SEK Currency Comparison</h1>
+        <p>
+            Explore exchange rate trends and view your
+            currency conversions.
+        </p>
+    </header>
+
     <div class="results-layout">
-        <div class="chart-section">
+
+        <!-- Chart section -->
+        <section class="chart-section results-card">
+
+            <div class="chart-header">
+                <h2>Exchange Rate Analysis</h2>
+                <p>
+                    Explore historical exchange rates and
+                    percentage changes.
+                </p>
+            </div>
+
             <div id="line-chart">
                 {{ line_html | safe }}
-                <select id="period-select">
-                    <option value="Day" {% if selected_period == "Day" %}selected{% endif %}>Day</option>
-                    <option value="Week" {% if selected_period == "Week" %}selected{% endif %}>Week</option>
-                    <option value="Month" {% if selected_period == "Month" %}selected{% endif %}>Month</option>
-                    <option value="Quarter"
-                            {% if selected_period == "Quarter" %}selected{% endif %}>Quarter</option>
-                </select>
             </div>
-            <div id="bar-chart">{{ bar_html | safe }}</div>
-            <button type="button" id="switch-chart">Switch Chart</button>
-        </div>
-        <div class="table-section">
+
+            <div id="bar-chart">
+                {{ bar_html | safe }}
+            </div>
+
+            <div class="chart-controls">
+                <div class="period-control" id="period-control">
+
+                    <select id="period-select">
+                        <option value="Day" {% if selected_period == "Day" %}selected{% endif %}>Day</option>
+                        <option value="Week" {% if selected_period == "Week" %}selected{% endif %}>Week</option>
+                        <option value="Month" {% if selected_period == "Month" %}selected{% endif %}>Month</option>
+                        <option value="Quarter" {% if selected_period == "Quarter" %}selected{% endif %}>Quarter</option>
+                    </select>
+                </div>
+
+                <button type="button" id="switch-chart">
+                    Switch Chart
+                </button>
+            </div>
+
+        </section>
+
+        <!-- Currency conversion table -->
+        <section class="table-section results-card">
             <h2>Currency Conversion</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Amount</th>
-                        <th>Rate</th>
-                        <th>Result</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for rate in rates %}
-                        {% if rate.quote in selected_currencies %}
-                            <tr>
-                                <td>{{ amount }} SEK</td>
-                                <td>{{ rate.rate }} {{ rate.quote }} per SEK</td>
-                                <td>{{ (amount * rate.rate) | round(2) }} {{ rate.quote }}</td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+            <p class="table-description">
+                Converted values based on the latest available rates.
+            </p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Rate</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rate in rates %}
+                            {% if rate.quote in selected_currencies %}
+                                <tr>
+                                    <td>{{ amount }} SEK</td>
+                                    <td>{{ rate.rate }} {{ rate.quote }} per SEK</td>
+                                    <td>{{ (amount * rate.rate) | round(2) }} {{ rate.quote }}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
     </div>
-    <script src="{{ url_for('static', filename='javascript/results.js') }}"></script>
+</div>
+
+<script src="{{ url_for('static', filename='javascript/results.js') }}"></script>
+
 {% endblock %}

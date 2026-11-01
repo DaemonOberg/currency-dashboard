@@ -9,6 +9,7 @@ def create_charts(data, dates_by_currency, table_data, amount):
     for row in table_data:
         changes.append(row["change_12m"])
 
+    # Create historical exchange rate line chart
     fig = go.Figure()
 
     for currency, currency_rates in rates.items():
@@ -23,27 +24,57 @@ def create_charts(data, dates_by_currency, table_data, amount):
 
     fig.update_layout(
         title=f"Historical Value of {amount:g} SEK in Selected Currencies",
+        autosize=True,
         height=450,
         template="plotly_dark",
         paper_bgcolor="#0b1012",
         plot_bgcolor="#0b1012",
     )
+
     fig.update_layout(
         xaxis_title="Dates",
         yaxis_title="Amount in Selected Currencies",
         yaxis_type="log",
     )
-    fig.update_xaxes(tickformat="%Y-%m-%d")
-    line_html = fig.to_html()
 
+    fig.update_xaxes(tickformat="%Y-%m-%d")
+
+    line_html = fig.to_html(
+        full_html=False,
+        default_width="100%",
+        config={"responsive": True},
+    )
+
+    # Create percentage change bar chart
     bar_fig = px.bar(
-        x=currencies, y=changes, title="Currency Percentage Change", text=changes
+        x=currencies,
+        y=changes,
+        title="Currency Percentage Change",
+        text=changes,
     )
+
     bar_fig.update_layout(
-        template="plotly_dark", paper_bgcolor="#0b1012", plot_bgcolor="#0b1012"
+        autosize=True,
+        height=450,
+        template="plotly_dark",
+        paper_bgcolor="#0b1012",
+        plot_bgcolor="#0b1012",
     )
-    bar_fig.update_layout(xaxis_title="Currencies", yaxis_title="Percentage Change (%)")
-    bar_fig.update_traces(textposition="outside", texttemplate="%{text}%")
-    bar_html = bar_fig.to_html()
+
+    bar_fig.update_layout(
+        xaxis_title="Currencies",
+        yaxis_title="Percentage Change (%)",
+    )
+
+    bar_fig.update_traces(
+        textposition="outside",
+        texttemplate="%{text}%",
+    )
+
+    bar_html = bar_fig.to_html(
+        full_html=False,
+        default_width="100%",
+        config={"responsive": True},
+    )
 
     return line_html, bar_html
