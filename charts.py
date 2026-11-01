@@ -1,6 +1,5 @@
 import plotly.express as px
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 
 
 def create_charts(data, dates_by_currency, table_data, amount):
@@ -10,9 +9,9 @@ def create_charts(data, dates_by_currency, table_data, amount):
     for row in table_data:
         changes.append(row["change_12m"])
 
-    fig = make_subplots(rows=len(currencies), cols=1)
+    fig = go.Figure()
 
-    for row_num, (currency, currency_rates) in enumerate(rates.items(), start=1):
+    for currency, currency_rates in rates.items():
         fig.add_trace(
             go.Scatter(
                 x=dates_by_currency[currency],
@@ -20,13 +19,11 @@ def create_charts(data, dates_by_currency, table_data, amount):
                 mode="lines",
                 name=f"{amount} SEK to {currency}",
             ),
-            row=row_num,
-            col=1,
         )
 
     fig.update_layout(
         title=f"Historical Value of {amount:g} SEK in Selected Currencies",
-        height=220 * len(currencies) + 120,
+        height=350,
         template="plotly_dark",
         paper_bgcolor="#0b1012",
         plot_bgcolor="#0b1012",
@@ -34,6 +31,7 @@ def create_charts(data, dates_by_currency, table_data, amount):
     fig.update_layout(
         xaxis_title="Dates",
         yaxis_title="Amount in Selected Currencies",
+        yaxis_type="log",
     )
     fig.update_xaxes(tickformat="%Y-%m-%d")
     line_html = fig.to_html()

@@ -1,27 +1,42 @@
 {% extends "base.html" %}
 {% block content %}
+    <style>
+    .results-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+        gap: 20px;
+        align-items: start;
+    }
+
+    .chart-section,
+    .table-section {
+        min-width: 0;
+    }
+    </style>
     <h1>SEK Currency Comparison</h1>
-    <table>
-        {% for rate in rates %}
-            {% if rate.quote in selected_currencies %}
-                {{ rate.quote }}
-                {{ rate.rate }}
-            {% endif %}
-        {% endfor %}
-    </table>
-    <div id="line-chart">
-        {{ line_html | safe }}
-        <select id="period-select">
-            <option value="Day" {% if selected_period == "Day" %}selected{% endif %}>Day</option>
-            <option value="Week" {% if selected_period == "Week" %}selected{% endif %}>Week</option>
-            <option value="Month" {% if selected_period == "Month" %}selected{% endif %}>Month</option>
-            <option value="Quarter"
-                    {% if selected_period == "Quarter" %}selected{% endif %}>Quarter</option>
-        </select>
-    </div>
-    <div id="bar-chart" style="display: none">{{ bar_html | safe }}</div>
-    <button type="button" id="switch-chart">Switch Chart</button>
-    <script>
+    <div class="results-layout">
+        <div class="chart-section">
+            <table>
+                {% for rate in rates %}
+                    {% if rate.quote in selected_currencies %}
+                        {{ rate.quote }}
+                        {{ rate.rate }}
+                    {% endif %}
+                {% endfor %}
+            </table>
+            <div id="line-chart">
+                {{ line_html | safe }}
+                <select id="period-select">
+                    <option value="Day" {% if selected_period == "Day" %}selected{% endif %}>Day</option>
+                    <option value="Week" {% if selected_period == "Week" %}selected{% endif %}>Week</option>
+                    <option value="Month" {% if selected_period == "Month" %}selected{% endif %}>Month</option>
+                    <option value="Quarter"
+                            {% if selected_period == "Quarter" %}selected{% endif %}>Quarter</option>
+                </select>
+            </div>
+            <div id="bar-chart" style="display: none">{{ bar_html | safe }}</div>
+            <button type="button" id="switch-chart">Switch Chart</button>
+            <script>
 const switchButton = document.getElementById("switch-chart");
 const lineChart = document.getElementById("line-chart");
 const barChart = document.getElementById("bar-chart");
@@ -90,5 +105,5 @@ Plotly.relayout(plotElement, {
 });
 
 
-    </script>
+            </script>
 {% endblock %}

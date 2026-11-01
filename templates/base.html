@@ -2,10 +2,58 @@
 <html>
     <head>
         <title>SEK Currency Dashboard</title>
+        <style>
+            .page-content {
+                padding: 32px;
+            }
+    body {
+        margin: 0;
+        background-color: #0b1012;
+        color: #f1f5f9;
+        font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 32px;
+        background-color: #10181c;
+        border-bottom: 1px solid #263238;
+    }
+
+    .navbar-brand {
+        color: #16c79a;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .navbar-links {
+        display: flex;
+        gap: 32px;
+    }
+
+    .navbar-links a {
+        color: #f1f5f9;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .navbar-links a:hover {
+        color: #16c79a;
+    }
+        </style>
     </head>
     <body>
-        <a href="/" style="float: right;">Home</a>
-        <a href="/info" style="float: right;">Info</a>
-        {% block content %}{% endblock %}
+        <nav class="navbar">
+            <span class="navbar-brand">SEK Dashboard</span>
+            <div class="navbar-links">
+                <a href="/info">Info</a>
+                <a href="/">Home</a>
+            </div>
+        </nav>
+        <main class="page-content">
+            {% block content %}{% endblock %}
+        </main>
     </body>
 </html>

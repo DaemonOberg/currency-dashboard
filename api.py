@@ -3,7 +3,7 @@ from datetime import date, timedelta
 import requests
 
 URL = "https://api.frankfurter.dev/v2/rates"
-VALUTOR = ["EUR", "USD", "GBP", "NOK", "JPY"]
+VALUTOR = ["EUR", "USD", "GBP", "NOK", "DKK"]
 
 
 def get_latest(currencies=None):
