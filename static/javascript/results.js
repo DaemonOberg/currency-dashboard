@@ -1,6 +1,7 @@
 const switchButton = document.getElementById("switch-chart");
 const lineChart = document.getElementById("line-chart");
 const barChart = document.getElementById("bar-chart");
+
 switchButton.addEventListener("click", function() {
     if (getComputedStyle(lineChart).display === "none") {
         lineChart.style.display = "block";
@@ -12,13 +13,20 @@ switchButton.addEventListener("click", function() {
 });
 
 const periodSelect = document.getElementById("period-select");
+
 periodSelect.addEventListener("change", function() {
     const selectedPeriod = periodSelect.value;
     const currencies = new URLSearchParams(window.location.search).getAll("currencies");
     const amount = Number(new URLSearchParams(window.location.search).get("amount"));
     const url = `/api/chart?period=${selectedPeriod}&${currencies.map(currency => `currencies=${currency}`).join("&")}`;
+
     fetch(url)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Could not retrieve historical exchange rates.");
+            }
+            return response.json();
+        })
         .then(data => {
             const records = data.records;
             const plotElement = lineChart.querySelector(".js-plotly-plot");
@@ -41,8 +49,12 @@ periodSelect.addEventListener("change", function() {
                 x: newX,
                 y: newY
             });
-Plotly.relayout(plotElement, {
-    "xaxis.nticks": 12
-});
-});
+
+            Plotly.relayout(plotElement, {
+                "xaxis.nticks": 12
+            });
+        })
+        .catch(error => {
+            alert(error.message);
+        });
 });

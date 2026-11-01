@@ -24,6 +24,11 @@ def results():
         return render_template("index.html", error="Please enter an amount")
     rates = get_latest(selected_currencies)
     history = get_history(selected_currencies)
+    if rates is None or history is None:
+        return render_template(
+            "index.html",
+            error="Could not retrieve exchange rates. Please try again later.",
+        )
     df = build_df(history, selected_currencies)
     table_data = get_table_data(df)
     selected_period = request.args.get("period", "Day")
@@ -60,6 +65,8 @@ def chart_data():
     selected_period = request.args.get("period")
     selected_currencies = request.args.getlist("currencies")
     history = get_history(selected_currencies)
+    if history is None:
+        return jsonify(error="Could not retrieve historical exchange rates."), 503
     df = build_df(history, selected_currencies)
     grouped_df = group_by_time(df, selected_period)
     chart_records = grouped_df.to_dict(orient="records")
