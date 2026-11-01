@@ -2,7 +2,7 @@ const switchButton = document.getElementById("switch-chart");
 const lineChart = document.getElementById("line-chart");
 const barChart = document.getElementById("bar-chart");
 switchButton.addEventListener("click", function() {
-    if (lineChart.style.display === "none") {
+    if (getComputedStyle(lineChart).display === "none") {
         lineChart.style.display = "block";
         barChart.style.display = "none";
     } else {
