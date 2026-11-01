@@ -23,7 +23,7 @@ def create_charts(data, dates_by_currency, table_data, amount):
 
     fig.update_layout(
         title=f"Historical Value of {amount:g} SEK in Selected Currencies",
-        height=350,
+        height=450,
         template="plotly_dark",
         paper_bgcolor="#0b1012",
         plot_bgcolor="#0b1012",

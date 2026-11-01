@@ -16,14 +16,6 @@
     <h1>SEK Currency Comparison</h1>
     <div class="results-layout">
         <div class="chart-section">
-            <table>
-                {% for rate in rates %}
-                    {% if rate.quote in selected_currencies %}
-                        {{ rate.quote }}
-                        {{ rate.rate }}
-                    {% endif %}
-                {% endfor %}
-            </table>
             <div id="line-chart">
                 {{ line_html | safe }}
                 <select id="period-select">
@@ -36,7 +28,30 @@
             </div>
             <div id="bar-chart" style="display: none">{{ bar_html | safe }}</div>
             <button type="button" id="switch-chart">Switch Chart</button>
-            <script>
+        </div>
+        <div class="table-section">
+            <h2>Exchange Rates</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Currency</th>
+                        <th>Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rate in rates %}
+                        {% if rate.quote in selected_currencies %}
+                            <tr>
+                                <td>{{ rate.quote }}</td>
+                                <td>{{ rate.rate }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
 const switchButton = document.getElementById("switch-chart");
 const lineChart = document.getElementById("line-chart");
 const barChart = document.getElementById("bar-chart");
@@ -96,14 +111,8 @@ Plotly.restyle(plotElement, {
 });
 Plotly.relayout(plotElement, {
     "xaxis.nticks": 12,
-    "xaxis2.nticks": 12,
-    "xaxis3.nticks": 12,
-    "xaxis4.nticks": 12,
-    "xaxis5.nticks": 12
 });
 });
 });
-
-
-            </script>
+    </script>
 {% endblock %}
