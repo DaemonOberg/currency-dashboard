@@ -1,18 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-    <style>
-    .results-layout {
-        display: grid;
-        grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
-        gap: 20px;
-        align-items: start;
-    }
-
-    .chart-section,
-    .table-section {
-        min-width: 0;
-    }
-    </style>
     <h1>SEK Currency Comparison</h1>
     <div class="results-layout">
         <div class="chart-section">
@@ -26,7 +13,7 @@
                             {% if selected_period == "Quarter" %}selected{% endif %}>Quarter</option>
                 </select>
             </div>
-            <div id="bar-chart" style="display: none">{{ bar_html | safe }}</div>
+            <div id="bar-chart">{{ bar_html | safe }}</div>
             <button type="button" id="switch-chart">Switch Chart</button>
         </div>
         <div class="table-section">
@@ -75,19 +62,6 @@ periodSelect.addEventListener("change", function() {
         .then(response => response.json())
         .then(data => {
             const records = data.records;
-            const uniqueCurrencies = [...new Set(records.map(record => record.currency))];
-            const traces = [];
-            uniqueCurrencies.forEach(currency => {
-                const currencyRecords = records.filter(record => record.currency === currency);
-                const dates = currencyRecords.map(record => record.date);
-                const rates = currencyRecords.map(record => record.sek * amount);
-                traces.push({
-                    x: dates,
-                    y: rates,
-                    mode: "lines",
-                    name: currency
-                });
-            });
             const plotElement = lineChart.querySelector(".js-plotly-plot");
 
             const newX = plotElement.data.map(trace => {
@@ -109,7 +83,7 @@ periodSelect.addEventListener("change", function() {
                 y: newY
             });
 Plotly.relayout(plotElement, {
-    "xaxis.nticks": 12,
+    "xaxis.nticks": 12
 });
 });
 });

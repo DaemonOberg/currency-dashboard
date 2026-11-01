@@ -1,7 +1,6 @@
-
-            .page-content {
-                padding: 32px;
-            }
+    .page-content {
+        padding: 32px;
+    }
     body {
         margin: 0;
         background-color: #0b1012;
@@ -38,3 +37,19 @@
     .navbar-links a:hover {
         color: #16c79a;
     }
+
+        .results-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+        gap: 20px;
+        align-items: start;
+    }
+
+    .chart-section,
+    .table-section {
+        min-width: 0;
+    }
+    
+    #bar-chart {
+    display: none;
+}
