@@ -1,0 +1,55 @@
+    .page-content {
+        padding: 32px;
+    }
+    body {
+        margin: 0;
+        background-color: #0b1012;
+        color: #f1f5f9;
+        font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 32px;
+        background-color: #10181c;
+        border-bottom: 1px solid #263238;
+    }
+
+    .navbar-brand {
+        color: #16c79a;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .navbar-links {
+        display: flex;
+        gap: 32px;
+    }
+
+    .navbar-links a {
+        color: #f1f5f9;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .navbar-links a:hover {
+        color: #16c79a;
+    }
+
+        .results-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+        gap: 20px;
+        align-items: start;
+    }
+
+    .chart-section,
+    .table-section {
+        min-width: 0;
+    }
+    
+    #bar-chart {
+    display: none;
+}
