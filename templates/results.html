@@ -65,7 +65,6 @@ switchButton.addEventListener("click", function() {
     }
 });
 
-
 const periodSelect = document.getElementById("period-select");
 periodSelect.addEventListener("change", function() {
     const selectedPeriod = periodSelect.value;
@@ -88,27 +87,27 @@ periodSelect.addEventListener("change", function() {
                     mode: "lines",
                     name: currency
                 });
-});
-const plotElement = lineChart.querySelector(".js-plotly-plot");
+            });
+            const plotElement = lineChart.querySelector(".js-plotly-plot");
 
-const newX = plotElement.data.map(trace => {
-    const currency = trace.name.split(" to ").pop();
-    return records
-        .filter(record => record.currency === currency)
-        .map(record => record.date);
-});
+            const newX = plotElement.data.map(trace => {
+                const currency = trace.name.split(" to ").pop();
+                return records
+                    .filter(record => record.currency === currency)
+                    .map(record => record.date);
+            });
 
-const newY = plotElement.data.map(trace => {
-    const currency = trace.name.split(" to ").pop();
-    return records
-        .filter(record => record.currency === currency)
-        .map(record => record.sek * amount);
-});
+            const newY = plotElement.data.map(trace => {
+                const currency = trace.name.split(" to ").pop();
+                return records
+                    .filter(record => record.currency === currency)
+                    .map(record => record.sek * amount);
+            });
 
-Plotly.restyle(plotElement, {
-    x: newX,
-    y: newY
-});
+            Plotly.restyle(plotElement, {
+                x: newX,
+                y: newY
+            });
 Plotly.relayout(plotElement, {
     "xaxis.nticks": 12,
 });
