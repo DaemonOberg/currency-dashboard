@@ -1,11 +1,16 @@
+
 <!DOCTYPE html>
 <html>
     <head>
         <title>SEK Currency Dashboard</title>
+
+        <!-- Load the shared CSS stylesheet -->
         <link rel="stylesheet"
               href="{{ url_for('static', filename='css/style.css') }}">
     </head>
     <body>
+
+        <!-- Shared navigation bar -->
         <nav class="navbar">
             <span class="navbar-brand">SEK Dashboard</span>
             <div class="navbar-links">
@@ -13,8 +18,11 @@
                 <a href="/">Home</a>
             </div>
         </nav>
+
+        <!-- Insert page-specific content from child templates -->
         <main class="page-content">
             {% block content %}{% endblock %}
         </main>
+
     </body>
 </html>

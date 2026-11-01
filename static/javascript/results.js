@@ -44,7 +44,10 @@ switchButton.addEventListener("click", function() {
 const periodSelect = document.getElementById("period-select");
 
 periodSelect.addEventListener("change", function() {
+    // Get the selected time period
     const selectedPeriod = periodSelect.value;
+
+    // Read selected currencies and SEK amount from the URL
     const currencies = new URLSearchParams(window.location.search).getAll("currencies");
     const amount = Number(new URLSearchParams(window.location.search).get("amount"));
     const url = `/api/chart?period=${selectedPeriod}&${currencies.map(currency => `currencies=${currency}`).join("&")}`;

@@ -1,7 +1,11 @@
+
 {% extends "base.html" %}
 
 {% block content %}
+
 <div class="info-page">
+
+    <!-- Page heading and introduction -->
     <header class="info-header">
         <h1>About SEK Currency Dashboard</h1>
         <p>
@@ -10,6 +14,7 @@
         </p>
     </header>
 
+    <!-- Project description -->
     <section class="info-section">
         <h2>Project Overview</h2>
         <p>
@@ -24,6 +29,7 @@
         </p>
     </section>
 
+    <!-- Main dashboard features -->
     <section class="info-section">
         <h2>Features</h2>
 
@@ -61,6 +67,7 @@
         </div>
     </section>
 
+    <!-- Guide for answering the three analysis questions -->
     <section class="info-section">
         <h2>Analysis Guide</h2>
         <p>
@@ -68,6 +75,7 @@
             questions using the dashboard.
         </p>
 
+        <!-- Analysis question 1: SEK compared with EUR -->
         <article class="analysis-card">
             <span class="question-label">QUESTION 01</span>
             <h3>
@@ -86,6 +94,7 @@
             </ol>
         </article>
 
+        <!-- Analysis question 2: Strongest and weakest currencies -->
         <article class="analysis-card">
             <span class="question-label">QUESTION 02</span>
             <h3>
@@ -107,6 +116,7 @@
             </ol>
         </article>
 
+        <!-- Analysis question 3: Highest numerical exchange value -->
         <article class="analysis-card">
             <span class="question-label">QUESTION 03</span>
             <h3>
@@ -129,12 +139,25 @@
         </article>
     </section>
 
+    <!-- API attribution and licensing information -->
     <section class="info-section">
         <h2>Data Source</h2>
         <p>
             Current and historical exchange rate data is provided
-            by the Frankfurter API.
+            by the Frankfurter API, which collects reference rates
+            from central banks and other official institutions.
         </p>
+        <p>
+            Frankfurter's software is licensed under the MIT License.
+            Exchange rate data may be subject to the original
+            providers' terms of use.
+        </p>
+        <p>
+            Exchange rates are provided for informational purposes
+            and may be updated or revised.
+        </p>
+
+        <!-- Links to the API documentation and license -->
         <a
             class="info-link"
             href="https://frankfurter.dev/"
@@ -143,6 +166,17 @@
         >
             Visit Frankfurter API
         </a>
+
+        <a
+            class="info-link"
+            href="https://frankfurter.dev/license/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            License &amp; Terms
+        </a>
     </section>
+
 </div>
+
 {% endblock %}

@@ -2,6 +2,7 @@ import pandas as pd
 
 
 def build_df(data, selected):
+    """Convert API data into a DataFrame for selected currencies."""
     if not data:
         return pd.DataFrame()
 
@@ -12,7 +13,7 @@ def build_df(data, selected):
         rate = row["rate"]
 
         if curr in selected:
-            # räknar ut vad 1 SEK är värt i den valda valutan
+            # Store the value of 1 SEK in the selected currency
             sek_val = rate
 
             rows.append(
@@ -32,12 +33,13 @@ def build_df(data, selected):
 
 
 def group_by_time(df, period="Day"):
+    """Group exchange rates by day, week, month or quarter."""
     if df.empty:
         return df
 
     df = df.copy()
 
-    # gör om datumet beroende på vad man valt i dropdownen
+    # Format dates based on the selected period
     if period == "Week":
         df["period"] = df["date"].dt.strftime("%Y-W%W")
     elif period == "Month":
@@ -49,7 +51,7 @@ def group_by_time(df, period="Day"):
     else:
         df["period"] = df["date"].dt.strftime("%Y-%m-%d")
 
-    # gruppera och räkna ut medelvärde för perioden
+    # Group by currency and period, then calculate average rates
     grouped = df.groupby(["currency", "period"])["sek"].mean().reset_index()
     grouped["sek"] = grouped["sek"].round(4)
     grouped = grouped.rename(columns={"period": "date"})
@@ -58,12 +60,13 @@ def group_by_time(df, period="Day"):
 
 
 def calc_percent(df):
+    """Calculate percentage changes between consecutive exchange rates."""
     if df.empty:
         return df
 
     df = df.copy()
 
-    # ny kolumn med procentuell förändring
+    # Add a new column with percentage changes for each currency
     df["pct_change"] = df.groupby("currency")["sek"].pct_change() * 100
     df["pct_change"] = df["pct_change"].fillna(0).round(2)
 
@@ -71,12 +74,13 @@ def calc_percent(df):
 
 
 def get_table_data(df):
+    """Calculate statistics and percentage changes for each currency."""
     if df.empty:
         return []
 
     table_rows = []
 
-    # går igenom varje valuta och tar fram min, max och förändring
+    # Calculate statistics for each currency
     for curr, group in df.groupby("currency"):
         first_val = group["sek"].iloc[0]
         last_val = group["sek"].iloc[-1]
@@ -84,7 +88,7 @@ def get_table_data(df):
         min_val = group["sek"].min()
         last_date = group["date"].iloc[-1].strftime("%Y-%m-%d")
 
-        # förändring i procent från start till slut
+        # Calculate percentage change from the first to the last rate
         change_pct = ((last_val - first_val) / first_val) * 100
 
         table_rows.append(
@@ -99,68 +103,3 @@ def get_table_data(df):
         )
 
     return table_rows
-
-
-def get_answers(df):
-    if df.empty:
-        return {}
-
-    table = get_table_data(df)
-
-    eur_pct = None
-    best_curr = table[0]
-    worst_curr = table[0]
-    highest_curr = table[0]
-
-    for row in table:
-        # hur har eur förändrats
-        if row["currency"] == "EUR":
-            eur_pct = row["change_12m"]
-
-        # vilken har stärkts och försvagats mest
-        if row["change_12m"] > best_curr["change_12m"]:
-            best_curr = row
-        if row["change_12m"] < worst_curr["change_12m"]:
-            worst_curr = row
-
-        # vilken har haft högst kurs
-        if row["max_sek"] > highest_curr["max_sek"]:
-            highest_curr = row
-
-    return {
-        "eur_change": eur_pct,
-        "strongest": best_curr["currency"],
-        "strongest_pct": best_curr["change_12m"],
-        "weakest": worst_curr["currency"],
-        "weakest_pct": worst_curr["change_12m"],
-        "highest": highest_curr["currency"],
-        "highest_sek": highest_curr["max_sek"],
-    }
-
-
-def convert_to_sek(amount, currency, latest_data):
-    if not latest_data:
-        return None
-
-    rate = None
-    rate_date = ""
-
-    for row in latest_data:
-        if row["quote"] == currency:
-            rate = row["rate"]
-            rate_date = row["date"]
-
-    if not rate:
-        return None
-
-    # räknar om beloppet till sek
-    one_in_sek = 1 / rate
-    total_sek = amount * one_in_sek
-
-    return {
-        "amount": amount,
-        "currency": currency,
-        "sek_amount": round(total_sek, 2),
-        "rate": round(one_in_sek, 4),
-        "date": rate_date,
-    }

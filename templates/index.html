@@ -5,6 +5,7 @@
 
 <main class="home-page">
 
+    <!-- Page heading and introduction -->
     <header class="home-header">
         <h1>SEK Currency Dashboard</h1>
         <p>
@@ -13,6 +14,7 @@
         </p>
     </header>
 
+    <!-- Currency comparison form -->
     <section class="home-card">
         <h2>Currency Comparison</h2>
         <p class="home-description">
@@ -20,12 +22,14 @@
             you want to compare.
         </p>
 
+        <!-- Display validation or API error messages -->
         {% if error %}
             <p class="home-error">{{ error }}</p>
         {% endif %}
 
         <form method="get" action="/results">
 
+            <!-- Input field for the amount in SEK -->
             <div class="home-form-group">
                 <label for="amount">Amount in SEK</label>
                 <input
@@ -34,10 +38,11 @@
                     name="amount"
                     min="1"
                     step="any"
-                    placeholder="Enter amount in SEK"
+                    placeholder="Enter your amount"
                 >
             </div>
 
+            <!-- Currency selection checkboxes -->
             <fieldset class="currency-fieldset">
                 <legend>Select currencies</legend>
 
@@ -71,6 +76,7 @@
                 </div>
             </fieldset>
 
+            <!-- Submit the selected amount and currencies to Flask -->
             <button class="home-submit" type="submit">
                 Compare Currencies
             </button>
